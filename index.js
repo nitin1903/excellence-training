@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const md5 = require('md5')
+const crypto = require('crypto')
 const User = require('./models/users')
 const UserProfile = require('./models/users-profile')
 
@@ -55,7 +55,7 @@ async function createUser(user) {
             firstName: user.firstName,
             lastName: user.lastName,
             email: user.email,
-            password: md5(user.password)
+            password: crypto.createHash('md5',user.password).digest('hex')
         }
 
         const profile = {
